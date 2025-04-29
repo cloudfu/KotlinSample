@@ -55,13 +55,20 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // databinding
-    implementation(libs.androidx.databinding.runtime)
-
     // hilt ksp编译性能更好
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-//    kapt(libs.hilt.compiler)
+//    kapt(libs.hilt.android.compiler)
+
+    // databinding
+    implementation (libs.androidx.databinding.runtime)
+
+    // lifecycle
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+    implementation (libs.androidx.lifecycle.runtime.ktx)
+    implementation (libs.androidx.lifecycle.livedata.core.ktx)
+    implementation (libs.androidx.lifecycle.livedata.ktx)
+    implementation (libs.androidx.lifecycle.livedata)
 
     // retrofit
     implementation (libs.retrofit)
@@ -78,7 +85,12 @@ dependencies {
     // room
     //noinspection GradleDependency
     implementation (libs.room.runtime)
-    ksp(libs.room.compiler)
+//    ksp(libs.room.compiler)
     implementation (libs.androidx.room.ktx)
 
+}
+
+// Hilt 专用配置 (必须放在文件底部)
+kapt {
+    correctErrorTypes = true
 }

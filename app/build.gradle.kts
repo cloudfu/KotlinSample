@@ -2,10 +2,11 @@ plugins {
     // 必须保持此顺序
     alias(libs.plugins.android.application)         // Android 插件
     alias(libs.plugins.kotlin.android)              // Kotlin 插件 (提供 kapt)
-    alias(libs.plugins.hilt.android)                // Hilt 插件
     alias(libs.plugins.kotlin.kapt)                 // Kapt插件
     alias(libs.plugins.ksp)                         // Ksp插件
     alias(libs.plugins.kotlin.parcelize)            // parcelize插件
+    alias(libs.plugins.hilt.android)                // Hilt 插件
+
 //    id ("kotlin-kapt")
 //    alias(libs.plugins.compose.compiler)          // compose 插件
 
@@ -46,6 +47,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        //noinspection DataBindingWithoutKapt
         dataBinding = true
         buildConfig = true
     }
@@ -89,7 +91,7 @@ dependencies {
 
     // hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
 
 //    implementation(libs.androidx.hilt.lifecycle.viewmodel)
 //    kapt(libs.androidx.hilt.compiler)
@@ -97,7 +99,6 @@ dependencies {
 }
 
 afterEvaluate {
-    println()
     println("已加载插件：${project.plugins.map { it.javaClass.simpleName }}")
 }
 
