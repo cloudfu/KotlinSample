@@ -1,4 +1,4 @@
-package com.example.kotlinsample.data
+package com.example.kotlinsample.entity
 
 import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity

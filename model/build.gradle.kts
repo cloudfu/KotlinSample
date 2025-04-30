@@ -1,11 +1,11 @@
 plugins {
     // 必须保持此顺序
-    alias(libs.plugins.android.library)         //
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)          // Kotlin 插件 (提供 kapt)
-    alias(libs.plugins.hilt.android)            // Hilt 插件
-    alias(libs.plugins.kotlin.kapt)             // Kapt插件
-    alias(libs.plugins.ksp)                     // Ksp插件
-
+    alias(libs.plugins.kotlin.parcelize)        // parcelize
+    alias(libs.plugins.hilt.android)            // 应用 Hilt 核心插件
+    alias(libs.plugins.hilt.plugin)             // 应用 Hilt KAPT/KSAP 插件
+    kotlin("kapt")                              // 启用 Kotlin 注解处理（KAPT）
 }
 
 android {
@@ -57,7 +57,7 @@ dependencies {
 
     // hilt ksp编译性能更好
     implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
+    kapt(libs.hilt.compiler)
 //    kapt(libs.hilt.android.compiler)
 
     // databinding

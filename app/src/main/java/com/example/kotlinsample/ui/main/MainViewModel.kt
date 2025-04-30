@@ -1,51 +1,45 @@
 package com.example.kotlinsample.ui.main
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.example.kotlinsample.data.UseCaseCategory
-import com.example.kotlinsample.data.mvvmUseCases
-import com.example.model.vm.BaseViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.kotlinsample.entity.UseCaseCategory
+import com.example.kotlinsample.repository.DataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import androidx.lifecycle.Transformations
 
-//@HiltViewModel
-class MainViewModel: ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val dataRepository: DataRepository
+): ViewModel() {
 
     private val TAG = "MainViewModel"
 
-    private val pageIndex = MutableLiveData<Int>(0)
+    private val pageIndex = MutableLiveData<Int>(3)
     private val useCaseCategories = MutableLiveData<List<UseCaseCategory>>()
-
-//    val outputLiveData: LiveData<String> = Transformations.switchMap(inputLiveData) { input ->
-//        getResultLiveData(input)
-//    }
-//    private val useCaseCategories: LiveData<List<UseCaseCategory>> = Transformations.switchMap(pageIndex) { pageIndex ->
-//        fetchUseCaseCategories(pageIndex)
-//    }
-
-//    init{
-//        pageIndex.observeForever(Observer { pageIndex ->
-//            fetchUseCaseCategories(pageIndex)
-//        })
-//    }
 
     /***
      * 进行数据列表翻页
      */
-    fun loadNextPage(): List<UseCaseCategory>?{
-        pageIndex.value?.plus(1)?:0
-        useCaseCategories.value = fetchUseCaseCategories(pageIndex.value!!)
-        return useCaseCategories.value
+    fun fetchNextPage(): List<UseCaseCategory>{
+        pageIndex.increment()
+        val currentPage = pageIndex.value ?: 1
+        viewModelScope.launch {
+
+        }
+        return dataRepository.fetchUseCaseCategories(currentPage)
     }
 
-    private fun fetchUseCaseCategories(pageIndex: Int): List<UseCaseCategory>{
-        return buildList<UseCaseCategory> {
-            for (i in 1..pageIndex*10) {
-                add(UseCaseCategory("Mock$i", mvvmUseCases))
-            }
-        }
+    val sourceLiveData: LiveData<Int> = MutableLiveData(10)
+    val transformedLiveData: LiveData<String> = Transformations.map(sourceLiveData) { num ->
+        "Value is: $num" // 将 Int 转换为 String
     }
+
+    private fun MutableLiveData<Int>.increment() {
+        this.value = this.value?.plus(1) ?: 1
+    }
+
 }

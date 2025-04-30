@@ -8,9 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.kotlinsample.R
-import com.example.kotlinsample.data.UseCaseCategory
+import com.example.kotlinsample.entity.UseCaseCategory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class UseCaseActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class UseCaseActivity @Inject constructor() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
