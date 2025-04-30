@@ -11,12 +11,12 @@ import com.example.model.vm.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-//@HiltViewModel
-class MainViewModel: ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(): ViewModel() {
 
     private val TAG = "MainViewModel"
 
-    private val pageIndex = MutableLiveData<Int>(0)
+    private val pageIndex = MutableLiveData<Int>(3)
     private val useCaseCategories = MutableLiveData<List<UseCaseCategory>>()
 
 //    val outputLiveData: LiveData<String> = Transformations.switchMap(inputLiveData) { input ->

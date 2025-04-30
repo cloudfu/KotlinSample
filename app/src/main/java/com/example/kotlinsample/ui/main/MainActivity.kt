@@ -13,8 +13,8 @@ import com.example.model.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-//@AndroidEntryPoint
-class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+@AndroidEntryPoint
+class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private lateinit var mUseCaseCategoryAdapter: UseCaseListAdapter
 
@@ -29,7 +29,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
      * 需要在依赖注入的ViewModel添加@HiltViewModel
      * Activity 中使用 val mLoginViewModel: LoginViewModel by viewModels()
      * */
-//    private val vMainViewModel: MainViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
 
     /***
      * RecycleView Item Click
@@ -51,7 +51,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
          * Init recyclerView.Adapter
          */
         mUseCaseCategoryAdapter = UseCaseListAdapter()
-//        mUseCaseCategoryAdapter.dataSource = vMainViewModel.loadNextPage()?: listOf()
+        mUseCaseCategoryAdapter.dataSource = mainViewModel.loadNextPage()?: listOf()
         mUseCaseCategoryAdapter.onListItemClicked { clickedUseCaseCategory ->
 //            val intent = UseCaseActivity.newIntent(applicationContext, clickedUseCaseCategory)
 //            startActivity(intent)
