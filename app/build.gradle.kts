@@ -88,11 +88,14 @@ dependencies {
     implementation (libs.androidx.databinding.runtime)
 
     // lifecycle
-    implementation (libs.androidx.lifecycle.viewmodel.ktx)
-    implementation (libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.livedata.core.ktx)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.livedata)
+//    implementation (libs.androidx.lifecycle.runtime.ktx)
+//    implementation(libs.androidx.lifecycle.livedata.core.ktx)
+//    implementation(libs.androidx.lifecycle.livedata.ktx)
+//    implementation(libs.androidx.lifecycle.livedata)
+//    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    implementation(libs.androidx.lifecycle.livedata.ktx)  // 包含Transformations
+    implementation(libs.androidx.lifecycle.viewmodel.ktx) // ViewModel支持
 
     // retrofit
     implementation (libs.squareup.retrofit2)

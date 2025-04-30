@@ -6,9 +6,8 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinsample.R
 import com.example.kotlinsample.adapter.UseCaseListAdapter
-import com.example.kotlinsample.data.userCaseCategories
 import com.example.kotlinsample.databinding.ActivityMainBinding
-import com.example.kotlinsample.data.UseCaseCategory
+import com.example.kotlinsample.entity.UseCaseCategory
 import com.example.model.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -51,7 +50,7 @@ class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.la
          * Init recyclerView.Adapter
          */
         mUseCaseCategoryAdapter = UseCaseListAdapter()
-        mUseCaseCategoryAdapter.dataSource = mainViewModel.loadNextPage()?: listOf()
+        mUseCaseCategoryAdapter.dataSource = mainViewModel.fetchNextPage()?: listOf()
         mUseCaseCategoryAdapter.onListItemClicked { clickedUseCaseCategory ->
 //            val intent = UseCaseActivity.newIntent(applicationContext, clickedUseCaseCategory)
 //            startActivity(intent)

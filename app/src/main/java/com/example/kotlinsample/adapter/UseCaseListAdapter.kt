@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinsample.R
-import com.example.kotlinsample.data.UseCaseCategory
+import com.example.kotlinsample.entity.UseCaseCategory
 
 class UseCaseListAdapter(
 ) : RecyclerView.Adapter<UseCaseListAdapter.ViewHolder>() {
