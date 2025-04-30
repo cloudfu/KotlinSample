@@ -3,6 +3,7 @@ package com.example.kotlinsample.ui.main
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinsample.R
 import com.example.kotlinsample.adapter.UseCaseListAdapter
@@ -50,7 +51,9 @@ class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.la
          * Init recyclerView.Adapter
          */
         mUseCaseCategoryAdapter = UseCaseListAdapter()
-        mUseCaseCategoryAdapter.dataSource = mainViewModel.fetchNextPage()?: listOf()
+        mainViewModel.useCaseCategories.observe(this@MainActivity, Observer {
+            mUseCaseCategoryAdapter.dataSource = it?: emptyList()
+        })
         mUseCaseCategoryAdapter.onListItemClicked { clickedUseCaseCategory ->
 //            val intent = UseCaseActivity.newIntent(applicationContext, clickedUseCaseCategory)
 //            startActivity(intent)
@@ -70,5 +73,8 @@ class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.la
                 ))
             }
         }
+
+        // 请求用例数据
+        mainViewModel.fetchNextPage()
     }
 }
