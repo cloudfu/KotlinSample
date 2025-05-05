@@ -9,7 +9,9 @@ import com.example.kotlinsample.repository.DataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import androidx.lifecycle.Transformations
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
+import timber.log.Timber
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -18,24 +20,20 @@ class MainViewModel @Inject constructor(
 
     private val TAG = "MainViewModel"
 
-    private val pageIndex = MutableLiveData<Int>(3)
-    private val useCaseCategories = MutableLiveData<List<UseCaseCategory>>()
+    private val pageIndex = MutableStateFlow<Int>(0)
+    val useCaseCategories = MutableLiveData<List<UseCaseCategory>>(emptyList())
 
     /***
      * 进行数据列表翻页
      */
-    fun fetchNextPage(): List<UseCaseCategory>{
-        pageIndex.increment()
-        val currentPage = pageIndex.value ?: 1
+    fun fetchNextPage() {
+        pageIndex.value++
+        Timber.d(TAG)
         viewModelScope.launch {
-
+            dataRepository.fetchUseCaseCategories(pageIndex.value).collect{
+                useCaseCategories.value = it
+            }
         }
-        return dataRepository.fetchUseCaseCategories(currentPage)
-    }
-
-    val sourceLiveData: LiveData<Int> = MutableLiveData(10)
-    val transformedLiveData: LiveData<String> = Transformations.map(sourceLiveData) { num ->
-        "Value is: $num" // 将 Int 转换为 String
     }
 
     private fun MutableLiveData<Int>.increment() {

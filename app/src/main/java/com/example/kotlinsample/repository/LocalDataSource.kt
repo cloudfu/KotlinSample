@@ -3,6 +3,7 @@ package com.example.kotlinsample.repository
 import com.example.kotlinsample.entity.UseCaseCategory
 import com.example.kotlinsample.entity.mvvmUseCases
 import com.example.model.adapter.LocalDataProvider
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,11 +16,8 @@ class LocalDataSource @Inject constructor(
         return "Hello World"
     }
 
-    override fun fetchUseCaseCategories(pageIndex: Int): List<UseCaseCategory> {
-        return buildList<UseCaseCategory> {
-            for (i in 1..pageIndex*10) {
-                add(UseCaseCategory("Mock Item $i", mvvmUseCases))
-            }
-        }
+    override suspend fun fetchUseCaseCategories(pageIndex: Int): Flow<List<UseCaseCategory>> {
+        TODO("Not yet implemented")
     }
+
 }

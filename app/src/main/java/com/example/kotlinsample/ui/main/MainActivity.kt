@@ -1,5 +1,6 @@
 package com.example.kotlinsample.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -10,6 +11,7 @@ import com.example.kotlinsample.databinding.ActivityMainBinding
 import com.example.kotlinsample.entity.UseCaseCategory
 import com.example.model.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.notify
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,13 +46,18 @@ class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.la
         init()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun init(){
 
         /***
          * Init recyclerView.Adapter
          */
         mUseCaseCategoryAdapter = UseCaseListAdapter()
-        mUseCaseCategoryAdapter.dataSource = mainViewModel.fetchNextPage()?: listOf()
+        mUseCaseCategoryAdapter.dataSource = mainViewModel.useCaseCategories.value!!
+        mainViewModel.useCaseCategories.observe(this@MainActivity) {
+            mUseCaseCategoryAdapter.dataSource = it
+            mUseCaseCategoryAdapter.submitList(it)
+        }
         mUseCaseCategoryAdapter.onListItemClicked { clickedUseCaseCategory ->
 //            val intent = UseCaseActivity.newIntent(applicationContext, clickedUseCaseCategory)
 //            startActivity(intent)
@@ -68,6 +75,12 @@ class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.la
                 addItemDecoration(mUseCaseCategoryAdapter.getItemDecoration(this@MainActivity,
                     R.drawable.recyclerview_divider
                 ))
+            }
+        }
+        mainViewModel.fetchNextPage()
+        mBinding.recyclerView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            if (scrollY == mBinding.recyclerView.getChildAt(0).top) {
+                mainViewModel.fetchNextPage()
             }
         }
     }
