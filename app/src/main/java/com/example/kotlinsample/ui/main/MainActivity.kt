@@ -70,13 +70,14 @@ class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.la
         binding {
             recyclerView.apply {
                 adapter = mUseCaseCategoryAdapter
-                hasFixedSize()
+//                hasFixedSize()
                 layoutManager = LinearLayoutManager(this@MainActivity)
                 addItemDecoration(mUseCaseCategoryAdapter.getItemDecoration(this@MainActivity,
                     R.drawable.recyclerview_divider
                 ))
             }
         }
+
         mainViewModel.fetchNextPage()
         mBinding.recyclerView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             if (scrollY == mBinding.recyclerView.getChildAt(0).top) {
