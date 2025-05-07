@@ -61,6 +61,7 @@ class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.la
             }
         }
 
+
         mMainViewModel.useCaseCategories.observe(this@MainActivity) {
             mUseCaseCategoryAdapter.dataSource = it
             mUseCaseCategoryAdapter.submitList(it)
