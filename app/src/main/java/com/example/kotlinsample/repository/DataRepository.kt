@@ -15,8 +15,6 @@ import javax.inject.Singleton
 
 @Singleton
 class DataRepository @Inject constructor(
-    private val localDataSource: LocalDataSource,
-    private val remoteDataSource: RemoteDataSource,
     private val mockDataSource: MockDataSource
 ){
 

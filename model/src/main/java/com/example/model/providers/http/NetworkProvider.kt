@@ -32,7 +32,7 @@ class NetworkProvider @Inject constructor(@ApplicationContext val context: Appli
             return loggingInterceptor
         }
 
-    // Http Head
+    // Http Header
     private var mHttpHeader = Interceptor { chain ->
         val original = chain.request()
         val request = original.newBuilder()

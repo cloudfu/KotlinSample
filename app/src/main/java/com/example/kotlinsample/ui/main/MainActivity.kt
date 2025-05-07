@@ -9,9 +9,10 @@ import com.example.kotlinsample.R
 import com.example.kotlinsample.adapter.UseCaseListAdapter
 import com.example.kotlinsample.databinding.ActivityMainBinding
 import com.example.kotlinsample.entity.UseCaseCategory
+import com.example.model.data.ResultPackage
 import com.example.model.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.internal.notify
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,7 +31,7 @@ class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.la
      * 需要在依赖注入的ViewModel添加@HiltViewModel
      * Activity 中使用 val mLoginViewModel: LoginViewModel by viewModels()
      * */
-    private val mainViewModel: MainViewModel by viewModels()
+    private val mMainViewModel: MainViewModel by viewModels()
 
     /***
      * RecycleView Item Click
@@ -53,8 +54,15 @@ class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.la
          * Init recyclerView.Adapter
          */
         mUseCaseCategoryAdapter = UseCaseListAdapter()
-        mUseCaseCategoryAdapter.dataSource = mainViewModel.useCaseCategories.value!!
-        mainViewModel.useCaseCategories.observe(this@MainActivity) {
+        mUseCaseCategoryAdapter.dataSource = mMainViewModel.useCaseCategories.value!!
+        mMainViewModel.loading.observe(this){
+            if (it != null) {
+                render(it)
+            }
+        }
+
+
+        mMainViewModel.useCaseCategories.observe(this@MainActivity) {
             mUseCaseCategoryAdapter.dataSource = it
             mUseCaseCategoryAdapter.submitList(it)
         }
@@ -78,11 +86,16 @@ class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.la
             }
         }
 
-        mainViewModel.fetchNextPage()
+        mMainViewModel.fetchNextPage()
         mBinding.recyclerView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             if (scrollY == mBinding.recyclerView.getChildAt(0).top) {
-                mainViewModel.fetchNextPage()
+                mMainViewModel.fetchNextPage()
             }
         }
     }
+
+    private fun render(loading: Boolean) {
+        Timber.d("loading:$loading")
+    }
+
 }

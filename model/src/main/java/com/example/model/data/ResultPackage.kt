@@ -1,15 +1,15 @@
 package com.example.model.data
 
-sealed class ApiResponse<T>(
+sealed class ResultPackage<T>(
     val code: Int = 0,
     val msg: String = "",
     val data: T? = null
 ) {
 
-    class Success<T>(data: T): ApiResponse<T>(ResponseStateCode.SUCCEED.code, ResponseStateCode.SUCCEED.msg, data)
-    class Failure<T>(code: Int, msg: String): ApiResponse<T>(code, msg, null)
-    class Loading<T>(): ApiResponse<T>(ResponseStateCode.LOADING.code, ResponseStateCode.LOADING.msg,null)
-    class Empty<T>(): ApiResponse<T>(ResponseStateCode.SERVER_FAILED.code, ResponseStateCode.SERVER_FAILED.msg,null)
+    class Success<T>(data: T): ResultPackage<T>(ResultState.SUCCEED.code, ResultState.SUCCEED.msg, data)
+    class Failure<T>(code: Int, msg: String): ResultPackage<T>(code, msg, null)
+    class Loading<T>(): ResultPackage<T>(ResultState.LOADING.code, ResultState.LOADING.msg,null)
+    class Empty<T>(): ResultPackage<T>(ResultState.SERVER_FAILED.code, ResultState.SERVER_FAILED.msg,null)
 
     override fun toString(): String {
         return when (this) {
@@ -21,7 +21,7 @@ sealed class ApiResponse<T>(
     }
 }
 
-enum class ResponseStateCode (val code: Int = 0, var msg: String = ""){
+enum class ResultState (val code: Int = 0, var msg: String = ""){
     LOADING(-1, "请求中"),
     SUCCEED(200, "获取成功"),
     SERVER_FAILED(1000, "服务器处理问题"),

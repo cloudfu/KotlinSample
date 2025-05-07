@@ -3,6 +3,7 @@ package com.example.kotlinsample.repository
 import com.example.kotlinsample.entity.UseCaseCategory
 import com.example.kotlinsample.entity.mvvmUseCases
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -23,6 +24,7 @@ class MockDataSource @Inject constructor(): IDataSource {
     }
 
     override suspend fun fetchUseCaseCategories(pageIndex: Int): Flow<List<UseCaseCategory>> = flow {
+        delay(1000)
         emit(buildList<UseCaseCategory> {
             for (i in 1..pageIndex * 10) {
                 add(UseCaseCategory("Mock Item $i", mvvmUseCases))
