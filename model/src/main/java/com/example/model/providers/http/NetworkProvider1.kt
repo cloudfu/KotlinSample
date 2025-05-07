@@ -1,18 +1,18 @@
-package com.example.model.providers.http
-
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object HttpProvider {
+internal object NetworkModule {
 
     @Provides
     @Singleton
@@ -28,8 +28,17 @@ internal object HttpProvider {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://pokeapi.co/api/v2/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create())
+//            .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
             .build()
     }
+}
 
+class HttpRequestInterceptor : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val originalRequest = chain.request()
+        val request = originalRequest.newBuilder().url(originalRequest.url).build()
+        Timber.d(request.toString())
+        return chain.proceed(request)
+    }
 }

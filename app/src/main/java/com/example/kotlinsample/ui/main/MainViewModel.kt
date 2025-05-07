@@ -3,6 +3,7 @@ package com.example.kotlinsample.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.kotlinsample.entity.UseCaseCategory
 import com.example.kotlinsample.repository.DataRepository
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.transform
 import timber.log.Timber
 
 @HiltViewModel
@@ -20,8 +22,13 @@ class MainViewModel @Inject constructor(
 
     private val TAG = "MainViewModel"
 
+    private val uiState = MutableStateFlow
     private val pageIndex = MutableStateFlow<Int>(0)
     val useCaseCategories = MutableLiveData<List<UseCaseCategory>>(emptyList())
+
+    val flowData = pageIndex.transform<Int,String> {
+        emit("pageIndex: $it")
+    }
 
     /***
      * 进行数据列表翻页
