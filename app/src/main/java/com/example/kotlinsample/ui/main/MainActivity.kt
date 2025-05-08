@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinsample.R
 import com.example.kotlinsample.adapter.UseCaseListAdapter
 import com.example.kotlinsample.databinding.ActivityMainBinding
-import com.example.kotlinsample.entity.UseCase
 import com.example.model.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber

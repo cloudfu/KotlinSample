@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.kotlinsample.R
-import com.example.kotlinsample.entity.UseCase
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

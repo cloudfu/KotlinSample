@@ -1,13 +1,11 @@
 package com.example.kotlinsample.repository.mock
 
-import com.example.kotlinsample.entity.UseCase
+import com.example.kotlinsample.ui.main.UseCase
 import com.example.kotlinsample.repository.IDataSource
 import com.example.model.data.ApiResponse
 import com.example.model.providers.network.MockNetworkInterceptor
 import com.google.gson.Gson
 import com.example.model.data.ResultState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 

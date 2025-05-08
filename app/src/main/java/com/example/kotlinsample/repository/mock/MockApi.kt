@@ -1,6 +1,6 @@
 package com.example.kotlinsample.repository.mock
 
-import com.example.kotlinsample.entity.UseCase
+import com.example.kotlinsample.ui.main.UseCase
 import com.example.model.providers.network.MockNetworkInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

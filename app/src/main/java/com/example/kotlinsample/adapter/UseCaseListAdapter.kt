@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinsample.R
-import com.example.kotlinsample.entity.UseCase
+import com.example.kotlinsample.ui.main.UseCase
 
 class UseCaseListAdapter(
 ) : ListAdapter<UseCase, UseCaseListAdapter.UseCaseViewHolder>(UseCaseItemDiffCallback()) {

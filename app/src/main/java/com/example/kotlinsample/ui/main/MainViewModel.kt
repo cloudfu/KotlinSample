@@ -2,7 +2,6 @@ package com.example.kotlinsample.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.kotlinsample.entity.UseCase
 import com.example.kotlinsample.repository.DataRepository
 import com.example.model.data.ApiResponse
 import com.example.model.vm.BaseViewModel

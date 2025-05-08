@@ -1,6 +1,6 @@
 package com.example.kotlinsample.repository.remote
 
-import com.example.kotlinsample.entity.UseCase
+import com.example.kotlinsample.ui.main.UseCase
 import com.example.kotlinsample.repository.IDataSource
 import com.example.model.adapter.NetworkProvider
 import com.example.model.data.ApiResponse
