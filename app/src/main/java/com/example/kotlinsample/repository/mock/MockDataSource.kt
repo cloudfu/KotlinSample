@@ -5,7 +5,7 @@ import com.example.kotlinsample.repository.IDataSource
 import com.example.model.data.ApiResponse
 import com.example.model.providers.network.MockNetworkInterceptor
 import com.google.gson.Gson
-import com.example.model.data.ResultState
+import com.example.model.data.ErrorCodes
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,7 +23,7 @@ class MockDataSource @Inject constructor(): IDataSource {
             .mock(
                 "http://localhost/fetch-use-case-categories/",
                 { Gson().toJson(getUseCaseList(30)) },
-                ResultState.SUCCEED.code,
+                ErrorCodes.SUCCEED.code,
                 1500
             )
 
@@ -31,7 +31,7 @@ class MockDataSource @Inject constructor(): IDataSource {
         return try {
             ApiResponse.Success(createMockApi(interceptor).fetchUseCaseCategories())
         } catch (ex: Exception) {
-            ApiResponse.Failure(ResultState.TIMEOUT)
+            ApiResponse.Failure(ErrorCodes.TIMEOUT)
         }
     }
 
