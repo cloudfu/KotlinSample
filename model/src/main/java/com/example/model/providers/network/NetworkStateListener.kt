@@ -1,4 +1,4 @@
-package com.example.model.providers.http
+package com.example.model.providers.network
 
 import android.content.Context
 import android.net.ConnectivityManager

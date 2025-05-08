@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.kotlinsample.R
-import com.example.kotlinsample.entity.UseCaseCategory
+import com.example.kotlinsample.entity.UseCase
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,9 +27,9 @@ class UseCaseActivity @Inject constructor() : AppCompatActivity() {
 
     companion object {
         private const val EXTRA_USE_CASE_CATEGORY = "EXTRA_USE_CASES"
-        fun newIntent(context: Context, useCaseCategory: UseCaseCategory) =
+        fun newIntent(context: Context, useCaseCategory: UseCase) =
             Intent(context, UseCaseActivity::class.java).apply {
-                putExtra(EXTRA_USE_CASE_CATEGORY, useCaseCategory)
+//                putExtra(EXTRA_USE_CASE_CATEGORY, useCaseCategory)
             }
     }
 }

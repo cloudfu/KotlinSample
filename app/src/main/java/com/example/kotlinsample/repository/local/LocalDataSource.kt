@@ -1,6 +1,8 @@
-package com.example.kotlinsample.repository
+package com.example.kotlinsample.repository.local
 
-import com.example.kotlinsample.entity.UseCaseCategory
+import com.example.kotlinsample.entity.UseCase
+import com.example.kotlinsample.repository.IDataSource
+import com.example.model.data.ApiResponse
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -13,7 +15,7 @@ class LocalDataSource @Inject constructor(
         return "Hello World"
     }
 
-    override suspend fun fetchUseCaseCategories(pageIndex: Int): Flow<List<UseCaseCategory>> {
+    override suspend fun fetchUseCaseCategories(pageIndex: Int): ApiResponse {
         TODO("Not yet implemented")
     }
 

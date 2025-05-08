@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinsample.R
-import com.example.kotlinsample.entity.UseCaseCategory
+import com.example.kotlinsample.entity.UseCase
 
 class UseCaseListAdapter(
-) : ListAdapter<UseCaseCategory, UseCaseListAdapter.UseCaseViewHolder>(UseCaseItemDiffCallback()) {
+) : ListAdapter<UseCase, UseCaseListAdapter.UseCaseViewHolder>(UseCaseItemDiffCallback()) {
 
-    private lateinit var onListItemClicked: (UseCaseCategory) -> Unit
-    lateinit var dataSource: List<UseCaseCategory>
+    private lateinit var onListItemClicked: (UseCase) -> Unit
+    lateinit var dataSource: List<UseCase>
 
     class UseCaseViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
 
@@ -31,12 +31,12 @@ class UseCaseListAdapter(
 
     override fun getItemCount() = dataSource.size
 
-    fun onListItemClicked(click: (UseCaseCategory) -> Unit){
+    fun onListItemClicked(click: (UseCase) -> Unit){
         this.onListItemClicked = click
     }
 
     override fun onBindViewHolder(holder: UseCaseViewHolder, position: Int) {
-        holder.textView.text = dataSource[position].categoryName
+        holder.textView.text = dataSource[position].name
         holder.textView.setOnClickListener {
             onListItemClicked(this.dataSource[position])
         }
@@ -53,12 +53,12 @@ class UseCaseListAdapter(
         return itemDecorator
     }
 
-    class UseCaseItemDiffCallback : DiffUtil.ItemCallback<UseCaseCategory>() {
-        override fun areItemsTheSame(oldItem: UseCaseCategory, newItem: UseCaseCategory): Boolean {
-            return oldItem.categoryName == newItem.categoryName // 判断是否为同一项（唯一标识）
+    class UseCaseItemDiffCallback : DiffUtil.ItemCallback<UseCase>() {
+        override fun areItemsTheSame(oldItem: UseCase, newItem: UseCase): Boolean {
+            return oldItem.name == newItem.name // 判断是否为同一项（唯一标识）
         }
 
-        override fun areContentsTheSame(oldItem: UseCaseCategory, newItem: UseCaseCategory): Boolean {
+        override fun areContentsTheSame(oldItem: UseCase, newItem: UseCase): Boolean {
             return oldItem == newItem // 判断内容是否相同（需重写 equals()）
         }
     }

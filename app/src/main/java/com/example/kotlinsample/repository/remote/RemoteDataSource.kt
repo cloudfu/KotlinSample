@@ -1,7 +1,9 @@
-package com.example.kotlinsample.repository
+package com.example.kotlinsample.repository.remote
 
-import com.example.kotlinsample.entity.UseCaseCategory
-import com.example.kotlinsample.entity.mvvmUseCases
+import com.example.kotlinsample.entity.UseCase
+import com.example.kotlinsample.repository.IDataSource
+import com.example.model.adapter.NetworkProvider
+import com.example.model.data.ApiResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -14,20 +16,26 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.retryWhen
 import timber.log.Timber
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class MockDataSource @Inject constructor(): IDataSource {
-
-    private val TAG = "MockDataSource"
+@Singleton
+class RemoteDataSource @Inject constructor(
+    private val networkProvider: NetworkProvider
+): IDataSource {
 
     override fun helloWorld(): String{
         return "Hello World"
     }
 
-    override suspend fun fetchUseCaseCategories(pageIndex: Int): Flow<List<UseCaseCategory>> = flow {
+    override suspend fun fetchUseCaseCategories(pageIndex: Int): ApiResponse {
+        TODO("Not yet implemented")
+    }
+
+    suspend fun fetchUseCaseCategories1(pageIndex: Int): Flow<List<UseCase>> = flow {
         delay(1000)
-        emit(buildList<UseCaseCategory> {
+        emit(buildList<UseCase> {
             for (i in 1..pageIndex * 10) {
-                add(UseCaseCategory("Mock Item $i", mvvmUseCases))
+                add(UseCase("Mock Item $i"))
             }
         })
     }
@@ -49,4 +57,5 @@ class MockDataSource @Inject constructor(): IDataSource {
         }
         .onEach { Timber.d(it.toString()) }
         .flowOn(Dispatchers.IO)
+
 }

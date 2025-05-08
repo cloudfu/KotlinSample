@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinsample.R
 import com.example.kotlinsample.adapter.UseCaseListAdapter
 import com.example.kotlinsample.databinding.ActivityMainBinding
-import com.example.kotlinsample.entity.UseCaseCategory
-import com.example.model.data.ResultPackage
+import com.example.kotlinsample.entity.UseCase
 import com.example.model.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -36,7 +35,7 @@ class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.la
     /***
      * RecycleView Item Click
      */
-    private var onUseCaseCategoryItemClick: (UseCaseCategory) -> Unit = { clickedUseCaseCategory->
+    private var onUseCaseCategoryItemClick: (UseCase) -> Unit = { clickedUseCaseCategory->
         val intent = UseCaseActivity.newIntent(applicationContext, clickedUseCaseCategory)
         startActivity(intent)
     }
@@ -66,10 +65,10 @@ class MainActivity @Inject constructor(): BaseActivity<ActivityMainBinding>(R.la
             mUseCaseCategoryAdapter.dataSource = it
             mUseCaseCategoryAdapter.submitList(it)
         }
-        mUseCaseCategoryAdapter.onListItemClicked { clickedUseCaseCategory ->
+        mUseCaseCategoryAdapter.onListItemClicked { clickedUseCase ->
 //            val intent = UseCaseActivity.newIntent(applicationContext, clickedUseCaseCategory)
 //            startActivity(intent)
-            onUseCaseCategoryItemClick(clickedUseCaseCategory)
+            onUseCaseCategoryItemClick(clickedUseCase)
         }
 
         /***

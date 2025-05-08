@@ -10,27 +10,15 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UseCase(
-    val description: String,
-    val targetActivity: Class<out AppCompatActivity>
+    val name: String,
+    val description: String = ""
 ) : Parcelable
-
-@Parcelize
-data class UseCaseCategory(val categoryName: String, val useCases: List<UseCase>) : Parcelable
 
 /***
  * MVVM UserCases
  */
-val mvvmUseCases = listOf(
-    UseCase("Network", NetworkActivity::class.java),
-    UseCase("Room", RoomActivity::class.java)
+val userCaseList = listOf(
+    UseCase("Network"),
+    UseCase("Room")
 )
 
-/***
- * UseCase Category
- */
-val userCaseCategories = listOf(
-    UseCaseCategory("MVVM", mvvmUseCases),
-    UseCaseCategory("Placeholder", mvvmUseCases),
-    UseCaseCategory("Placeholder", mvvmUseCases),
-    UseCaseCategory("Placeholder", mvvmUseCases)
-)

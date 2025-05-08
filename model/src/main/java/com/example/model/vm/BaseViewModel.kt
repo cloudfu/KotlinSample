@@ -2,6 +2,7 @@ package com.example.model.vm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.model.data.ResultState
 
 open class BaseViewModel : ViewModel() {
 
