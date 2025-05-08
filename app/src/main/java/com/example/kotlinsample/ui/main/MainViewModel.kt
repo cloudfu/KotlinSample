@@ -36,6 +36,7 @@ class MainViewModel @Inject constructor(
             dataRepository.fetchUseCaseCategories(pageIndex.value).collect{
                 when(it){
                     is ApiResponse.Loading -> {
+                        Timber.d(TAG, "loading")
                         loading.value = true
                     }
 

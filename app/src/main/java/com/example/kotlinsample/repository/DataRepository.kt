@@ -29,6 +29,7 @@ class DataRepository @Inject constructor(
 
     fun fetchUseCaseCategories(pageIndex: Int): Flow<ApiResponse> {
         return flow {
+            emit(ApiResponse.Loading)
             emit(dataSource.fetchUseCaseCategories(pageIndex))
         }.onStart { Timber.d("onStart")}
             // 通过cause和attempt 进行 retry控制

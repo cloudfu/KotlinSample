@@ -15,3 +15,11 @@ Android Activity/Fragment     lifecycleScope.launch { ... }
 普通 Kotlin 应用（长期运行）    使用 CoroutineScope + 手动管理生命周期
 
 ghp_1NWiCiwOaDaecFAxFM9wtQ08xbSn9Be4OrMlJ
+
+1. Hilt 依赖注入 retrofit/okhttp/repository
+2. repository local/remote 数据merge
+3. room hilt
+4. network 监听
+5. api host动态变更
+6. seal class out T
+7. viewMode lambda success/failed接口回调
