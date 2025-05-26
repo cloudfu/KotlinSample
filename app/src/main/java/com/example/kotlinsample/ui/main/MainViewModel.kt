@@ -45,7 +45,8 @@ class MainViewModel @Inject constructor(
                     }
 
                     is ApiResponse.Failure -> {
-                        Timber.d(TAG, "fetchUseCaseCategories: ${it.state.msg}")
+//                        Timber.d(TAG, "fetchUseCaseCategories: ${it.state.msg}")
+//                        useCaseCategories.value = it
                     }
                 }
             }

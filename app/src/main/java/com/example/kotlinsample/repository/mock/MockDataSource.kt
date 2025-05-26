@@ -6,11 +6,15 @@ import com.example.model.data.ApiResponse
 import com.example.model.providers.network.MockNetworkInterceptor
 import com.google.gson.Gson
 import com.example.model.data.ErrorCodes
+import com.example.model.providers.network.NetworkState
+import com.example.model.providers.network.NetworkStateListener
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MockDataSource @Inject constructor(): IDataSource {
+class MockDataSource @Inject constructor(
+    private val networkStateListener: NetworkStateListener
+): IDataSource {
 
     private val TAG = "MockDataSource"
 
@@ -27,12 +31,16 @@ class MockDataSource @Inject constructor(): IDataSource {
                 1500
             )
 
-        // TODO:应该需要通过ResponseBody进行code判断
-        return try {
-            ApiResponse.Success(createMockApi(interceptor).fetchUseCaseCategories())
-        } catch (ex: Exception) {
-            ApiResponse.Failure(ErrorCodes.TIMEOUT)
+        return when(networkStateListener.getNetworkState()){
+            NetworkState.Available ->
+                try {
+                    ApiResponse.Success(createMockApi(interceptor).fetchUseCaseCategories())
+                } catch (ex: Exception) {
+                    ApiResponse.Failure(ErrorCodes.TIMEOUT)
+                }
+            else -> ApiResponse.Failure(ErrorCodes.NETWORK_DISCONNECTED)
         }
+        // TODO:应该需要通过ResponseBody进行code判断
     }
 
 //    suspend fun fetchUseCaseCategories1(pageIndex: Int): Flow<List<UseCase>> {

@@ -18,8 +18,8 @@ ghp_1NWiCiwOaDaecFAxFM9wtQ08xbSn9Be4OrMlJ
 
 1. Hilt 依赖注入 retrofit/okhttp/repository
 2. repository local/remote 数据merge
-3. room hilt
-4. network 监听
-5. api host动态变更
+3. room hilt            - today
+4. network 监听          - Done
+5. api host动态变更       - today
 6. seal class out T
 7. viewMode lambda success/failed接口回调
